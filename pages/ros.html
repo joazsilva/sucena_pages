@@ -17,7 +17,7 @@
     
     <form
       action="https://docs.google.com/forms/d/e/1FAIpQLSc0aR400pAlVKOad1iPPrsW1AMbtpic2lLEe6mSYu7gadplfg/formResponse"
-      method="post" name="FORMULARIO ROS 2.0" id="meuForm">
+      method="post" >
       <div class="form-group">
         <label for="obra">Nome da Obra</label>
         <input type="text" id="obra" name="entry.1176323046" required>
@@ -65,125 +65,9 @@
       <button type="submit">Enviar</button>
     </form>
 
-  <script>
-    function checkOnlineStatus() {
-      const isOnline = navigator.onLine;
-      const statusIndicator = document.getElementById('statusIndicator');
-      const statusLabel = document.getElementById('statusLabel');
-
-      if (isOnline) {
-        statusIndicator.style.backgroundColor = 'green';
-        statusLabel.textContent = 'Online';
-      } else {
-        statusIndicator.style.backgroundColor = 'red';
-        statusLabel.textContent = 'Offline';
-      }
-    }
-  </script>
-
-  <script>
-
-    var obraValue, dataValue, horaValue, ocorrenciaValue, acaoValue, riscoValue, acidenteValue, nomeValue, cpfValue, localidadeValue;
 
 
-    function generateImage() {
 
-      var canvas = document.createElement('canvas');
-      canvas.width = 450; // Defina a largura do canvas como desejado
-      canvas.height = 450; // Defina a altura do canvas como desejado
-      var ctx = canvas.getContext('2d');
-
-      // Desenha a imagem personalizada com os dados do formulário
-      ctx.fillStyle = '#FFFFFF'; // Define a cor de fundo do canvas
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Adicione sua foto
-      var img = new Image();
-      img.src = "../img/logo_nova.png";
-      img.onload = function () {
-        ctx.drawImage(img, 20, 20, 350, 150); // Define a posição e o tamanho da foto
-        // Continue desenhando os outros elementos na imagem
-
-        ctx.fillStyle = '#000000'; // Define a cor do texto
-        ctx.font = '16px Arial'; // Define a fonte do texto
-
-        // Defina o espaçamento entre as linhas de texto (neste exemplo, é 30)
-        var lineHeight = 30;
-        var y = 200; // Define a coordenada y inicial do primeiro texto
-
-        // Desenhe cada linha de texto com os dados do formulário
-        ctx.fillText('Novo ROS Registrado ✅', 20, y);
-        y += lineHeight;
-        y += lineHeight;
-        ctx.fillText('Obra: ' + (obraValue || 'null'), 20, y);
-        y += lineHeight;
-        ctx.fillText('Data: ' + (dataValue || 'null'), 20, y);
-        y += lineHeight;
-        ctx.fillText('Hora: ' + (horaValue || 'null'), 20, y);
-        y += lineHeight;
-        ctx.fillText('Nome: ' + (nomeValue || 'null'), 20, y);
-        y += lineHeight;
-        ctx.fillText('Localidade: ' + (localidadeValue || 'null'), 20, y);
-
-        // Cria um link temporário para baixar a imagem
-        var link = document.createElement('a');
-        link.download = 'ros_registrado.jpg';
-        link.href = canvas.toDataURL('image/jpg');
-        link.click();
-      };
-    }
-
-
-    document.getElementById('meuForm').addEventListener('submit', function (event) {
-      // Impede o envio real do formulário para evitar redirecionamentos
-      event.preventDefault();
-
-      // Obtém os valores dos campos do formulário HTML
-      obraValue = document.getElementById('obra').value;
-      dataValue = document.getElementById('data').value;
-      horaValue = document.getElementById('hora').value;
-      ocorrenciaValue = document.getElementById('ocorrencia').value;
-      acaoValue = document.getElementById('acao').value;
-      riscoValue = document.getElementById('risco').value;
-      acidenteValue = document.getElementById('acidente').value;
-      nomeValue = document.getElementById('nome').value;
-      cpfValue = document.getElementById('cpf').value;
-      localidadeValue = document.getElementById('localidade').value;
-
-      // Cria um objeto FormData para enviar os dados usando AJAX
-      var formData = new FormData();
-      formData.append('entry.1176323046', obraValue);
-      formData.append('entry.24549427', dataValue);
-      formData.append('entry.1300854554', horaValue);
-      formData.append('entry.1860707841', ocorrenciaValue);
-      formData.append('entry.841826553', acaoValue);
-      formData.append('entry.742866740', riscoValue);
-      formData.append('entry.388768836', acidenteValue);
-      formData.append('entry.1998477496', nomeValue);
-      formData.append('entry.2054978426', cpfValue);
-      formData.append('entry.1801676748', localidadeValue);
-
-      // Envia o formulário usando AJAX
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://docs.google.com/forms/d/e/1FAIpQLSc0aR400pAlVKOad1iPPrsW1AMbtpic2lLEe6mSYu7gadplfg/formResponse');
-      xhr.onreadystatechange = function () {
-        // Verifica se a solicitação foi concluída e bem-sucedida (readyState 4 e status 200)
-        if (xhr.readyState === 4) {
-          // Exibe o alerta de confirmação após o envio dos dados
-          alert('Dados enviados com sucesso!');
-
-          // Reseta o formulário simulado após o envio
-          document.getElementById('meuForm').reset();
-          var confirmDownload = confirm("Comprovante gerado com sucesso! Deseja fazer o download da imagem?");
-          if (confirmDownload) {
-            // Gera a imagem personalizada com os dados do formulário e faz o download
-            generateImage();
-          }
-        }
-      };
-      xhr.send(formData);
-    });
-  </script>
     
 </body>
 </html>
