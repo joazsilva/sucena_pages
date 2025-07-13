@@ -112,3 +112,9 @@ td input{
 tr{
    text-align: center;
 }
+
+@media (max-width: 500px) {
+  section {
+    width: 70vw;
+  }
+}
