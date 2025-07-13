@@ -2,12 +2,13 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 0;
     margin: 0;
+
 }
 
 
 header {
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 } 
 
 .logo-sucena {
@@ -42,7 +43,11 @@ main{
 
 h2{
     font-size: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
+}
+
+main {
+    margin-bottom: 2rem;
 }
 
 .content-navs{
@@ -59,7 +64,6 @@ h2{
     background: #828D9A;
     font-size: 20px;
     margin: 7px;
-    margin-bottom: 1rem;
     padding: 20px 50px;
     border-radius: 10px;
 }
