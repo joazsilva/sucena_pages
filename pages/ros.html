@@ -15,32 +15,30 @@
         </a>
     </header>
     
-    <form
-      action="https://docs.google.com/forms/d/e/1FAIpQLSc0aR400pAlVKOad1iPPrsW1AMbtpic2lLEe6mSYu7gadplfg/formResponse"
-      method="post" >
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSc7USFTmo--FMM9dvm2S_UM1jfgGJEfS3YkFhCdGBL2R3pq7A/formResponse" method="POST" id="meuForm">
       <div class="form-group">
         <label for="obra">Nome da Obra</label>
-        <input type="text" id="obra" name="entry.1176323046" required>
+        <input type="text" id="obra" name="entry.669555488" required>
       </div>
       <div class="form-group">
         <label for="data">Data</label>
-        <input type="date" id="data" name="entry.24549427" required>
+        <input type="date" id="data" name="entry.701527260" required>
       </div>
       <div class="form-group">
         <label for="hora">Hora</label>
-        <input type="time" id="hora" name="entry.1300854554" required>
+        <input type="time" id="hora" name="entry.441127112" required>
       </div>
       <div class="form-group">
         <label for="ocorrencia">Ocorrência</label>
-        <textarea id="ocorrencia" name="entry.1860707841" rows="4" required></textarea>
+        <textarea id="ocorrencia" name="entry.1304499142" rows="4" required></textarea>
       </div>
       <div class="form-group">
         <label for="acao">Ação Tomada</label>
-        <textarea id="acao" name="entry.841826553" rows="4" required></textarea>
+        <textarea id="acao" name="entry.850319054" rows="4" required></textarea>
       </div>
       <div class="form-group">
         <label for="risco">É um risco de fatalidade? </label>
-        <select id="risco" name="entry.742866740" required>
+        <select id="risco" name="entry.1488602569" required>
           <option value="">Selecione</option>
           <option value="Sim">Sim</option>
           <option value="Não">Não</option>
@@ -48,26 +46,127 @@
       </div>
       <div class="form-group">
         <label for="acidente">Possível Acidente Evitado</label>
-        <textarea id="acidente" name="entry.388768836" rows="4" required></textarea>
+        <textarea id="acidente" name="entry.646142676" rows="4" required></textarea>
       </div>
       <div class="form-group">
         <label for="nome">Nome Completo</label>
-        <input type="text" id="nome" name="entry.1998477496" required>
+        <input type="text" id="nome" name="entry.667336363" required>
       </div>
       <div class="form-group">
         <label for="cpf">CPF/Matricula</label>
-        <input type="text" id="cpf" name="entry.2054978426" pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="cpf" name="entry.1209587730" pattern="[0-9]+" inputmode="numeric" required>
       </div>
       <div class="form-group">
         <label for="localidade">Localidade</label>
-        <input type="text" id="localidade" name="entry.1801676748" required>
+        <input type="text" id="localidade" name="entry.1643100494" required>
       </div>
-      <button type="submit">Enviar</button>
+      <button type="submit">Enviar formulário</button>
     </form>
 
+    <script>
+      
+
+      var obraValue, dataValue, horaValue, ocorrenciaValue, acaoValue, riscoValue, acidenteValue, nomeValue, cpfValue, localidadeValue;
 
 
+      function generateImage() {
 
-    
+        var canvas = document.createElement('canvas');
+        canvas.width = 450; // Defina a largura do canvas como desejado
+        canvas.height = 450; // Defina a altura do canvas como desejado
+        var ctx = canvas.getContext('2d');
+
+        // Desenha a imagem personalizada com os dados do formulário
+        ctx.fillStyle = '#FFFFFF'; // Define a cor de fundo do canvas
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Adicione sua foto
+        var img = new Image();
+        img.src = "../../assets/logo-sucena.png"; // Caminho para a imagem que você deseja adicionar
+        img.onload = function () {
+          ctx.drawImage(img, 20, 20, 350, 150); // Define a posição e o tamanho da foto
+          // Continue desenhando os outros elementos na imagem
+
+          ctx.fillStyle = '#000000'; // Define a cor do texto
+          ctx.font = '16px Arial'; // Define a fonte do texto
+
+          // Defina o espaçamento entre as linhas de texto (neste exemplo, é 30)
+          var lineHeight = 30;
+          var y = 200; // Define a coordenada y inicial do primeiro texto
+
+          // Desenhe cada linha de texto com os dados do formulário
+          ctx.fillText('Novo ROS Registrado ✅', 20, y);
+          y += lineHeight;
+          y += lineHeight;
+          ctx.fillText('Obra: ' + (obraValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Data: ' + (dataValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Hora: ' + (horaValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Nome: ' + (nomeValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Localidade: ' + (localidadeValue || 'null'), 20, y);
+
+          // Cria um link temporário para baixar a imagem
+          var link = document.createElement('a');
+          link.download = 'ros_registrado.jpg';
+          link.href = canvas.toDataURL('image/jpg');
+          link.click();
+        };
+      }
+
+
+      document.getElementById('meuForm').addEventListener('submit', function (event) {
+        // Impede o envio real do formulário para evitar redirecionamentos
+        event.preventDefault();
+
+        // Obtém os valores dos campos do formulário HTML
+        obraValue = document.getElementById('obra').value;
+        dataValue = document.getElementById('data').value;
+        horaValue = document.getElementById('hora').value;
+        ocorrenciaValue = document.getElementById('ocorrencia').value;
+        acaoValue = document.getElementById('acao').value;
+        riscoValue = document.getElementById('risco').value;
+        acidenteValue = document.getElementById('acidente').value;
+        nomeValue = document.getElementById('nome').value;
+        cpfValue = document.getElementById('cpf').value;
+        localidadeValue = document.getElementById('localidade').value;
+
+        // Cria um objeto FormData para enviar os dados usando AJAX
+        var formData = new FormData();
+        formData.append('entry.669555488', obraValue);
+        formData.append('entry.701527260', dataValue);
+        formData.append('entry.441127112', horaValue);
+        formData.append('entry.1304499142', ocorrenciaValue);
+        formData.append('entry.850319054', acaoValue);
+        formData.append('entry.1488602569', riscoValue);
+        formData.append('entry.646142676', acidenteValue);
+        formData.append('entry.667336363', nomeValue);
+        formData.append('entry.1209587730', cpfValue);
+        formData.append('entry.1643100494', localidadeValue);
+
+        // Envia o formulário usando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://docs.google.com/forms/d/e/1FAIpQLSc7USFTmo--FMM9dvm2S_UM1jfgGJEfS3YkFhCdGBL2R3pq7A/formResponse');
+        xhr.onreadystatechange = function () {
+          // Verifica se a solicitação foi concluída e bem-sucedida (readyState 4 e status 200)
+          if (xhr.readyState === 4) {
+            // Exibe o alerta de confirmação após o envio dos dados
+            alert('Dados enviados com sucesso!');
+
+            // Reseta o formulário simulado após o envio
+            document.getElementById('meuForm').reset();
+            var confirmDownload = confirm("Comprovante gerado com sucesso! Deseja fazer o download da imagem?");
+            if (confirmDownload) {
+              // Gera a imagem personalizada com os dados do formulário e faz o download
+              generateImage();
+            }
+          }
+        };
+        xhr.send(formData);
+      });
+  
+    </script>
 </body>
 </html>
