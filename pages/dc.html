@@ -6,6 +6,8 @@
     <title>Formulário DC</title>
 
     <link rel="stylesheet" href="/styles/style-dc.css">
+
+
 </head>
 <body>
     <header>
@@ -16,7 +18,7 @@
             Página Inicial
         </a>
     </header>
-    <form action="https://docs.google.com/forms/d/e/1FAIpQLScnAq2xRJgOXvaHmbQf-dc-QU49vpE172upYAbELqg2IpctPg/formResponse" method="post" >
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLScnAq2xRJgOXvaHmbQf-dc-QU49vpE172upYAbELqg2IpctPg/formResponse" method="POST" id="meuForm" >
         <section class="data-section">
             <h2>Dados de Data</h2>
 
@@ -349,6 +351,104 @@
 
 
     </form>
+
+    <script>
+      
+
+      var obraValue, dataValue, horaValue, ocorrenciaValue, acaoValue, riscoValue, acidenteValue, nomeValue, cpfValue, localidadeValue;
+
+
+      function generateImage() {
+
+        var canvas = document.createElement('canvas');
+        canvas.width = 450; // Defina a largura do canvas como desejado
+        canvas.height = 450; // Defina a altura do canvas como desejado
+        var ctx = canvas.getContext('2d');
+
+        // Desenha a imagem personalizada com os dados do formulário
+        ctx.fillStyle = '#FFFFFF'; // Define a cor de fundo do canvas
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Adicione sua foto
+        var img = new Image();
+        img.src = "../../assets/logo-sucena.png"; // Caminho para a imagem que você deseja adicionar
+        img.onload = function () {
+          ctx.drawImage(img, 20, 20, 350, 150); // Define a posição e o tamanho da foto
+          // Continue desenhando os outros elementos na imagem
+
+          ctx.fillStyle = '#000000'; // Define a cor do texto
+          ctx.font = '16px Arial'; // Define a fonte do texto
+
+          // Defina o espaçamento entre as linhas de texto (neste exemplo, é 30)
+          var lineHeight = 30;
+          var y = 200; // Define a coordenada y inicial do primeiro texto
+
+          // Desenhe cada linha de texto com os dados do formulário
+          ctx.fillText('Novo DC Registrado ✅', 20, y);
+          y += lineHeight;
+          y += lineHeight;
+          ctx.fillText('Obra: ' + (obraValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Data: ' + (dataValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Hora: ' + (horaValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Nome: ' + (nomeValue || 'null'), 20, y);
+          y += lineHeight;
+          ctx.fillText('Localidade: ' + (localidadeValue || 'null'), 20, y);
+
+          // Cria um link temporário para baixar a imagem
+          var link = document.createElement('a');
+          link.download = 'dc_registrado.jpg';
+          link.href = canvas.toDataURL('image/jpg');
+          link.click();
+        };
+      }
+
+
+      document.getElementById('meuForm').addEventListener('submit', function (event) {
+        // Impede o envio real do formulário para evitar redirecionamentos
+        event.preventDefault();
+
+        // Obtém os valores dos campos do formulário HTML
+        obraValue = document.getElementById('obra').value;
+        dataValue = document.getElementById('data').value;
+        horaValue = document.getElementById('time').value;
+        nomeValue = document.getElementById('observador').value;
+        cpfValue = document.getElementById('cpf').value;
+        localidadeValue = document.getElementById('localidade').value;
+
+        // Cria um objeto FormData para enviar os dados usando AJAX
+        var formData = new FormData();
+        formData.append('entry.411390142', obraValue);
+        formData.append('entry.26795566', dataValue);
+        formData.append('entry.903698878', horaValue);
+        formData.append('entry.105921052', nomeValue);
+        formData.append('entry.546327822', cpfValue);
+        formData.append('entry.411390142', localidadeValue);
+
+        // Envia o formulário usando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://docs.google.com/forms/d/e/1FAIpQLScnAq2xRJgOXvaHmbQf-dc-QU49vpE172upYAbELqg2IpctPg/formResponse');
+        xhr.onreadystatechange = function () {
+          // Verifica se a solicitação foi concluída e bem-sucedida (readyState 4 e status 200)
+          if (xhr.readyState === 4) {
+            // Exibe o alerta de confirmação após o envio dos dados
+            alert('Dados enviados com sucesso!');
+
+            // Reseta o formulário simulado após o envio
+            document.getElementById('meuForm').reset();
+            var confirmDownload = confirm("Comprovante gerado com sucesso! Deseja fazer o download da imagem?");
+            if (confirmDownload) {
+              // Gera a imagem personalizada com os dados do formulário e faz o download
+              generateImage();
+            }
+          }
+        };
+        xhr.send(formData);
+      });
+  
+    </script>
 
     
 </body>
